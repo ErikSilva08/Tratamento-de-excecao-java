@@ -1,4 +1,5 @@
 import casasBahia.Sistema;
+import excecoes.CodigoDuplicadoException;
 import excecoes.PrecoInvalidoException;
 
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class Main {
                 case 1:
                     try {
                         sistema.adicionarProduto(scan);
-                    } catch (PrecoInvalidoException e) {
+                    } catch (PrecoInvalidoException | CodigoDuplicadoException e) {
                         System.out.println(e.getMessage());
                     }
                     break;

@@ -3,6 +3,7 @@ package casasBahia;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import excecoes.CodigoDuplicadoException;
 import excecoes.PrecoInvalidoException;
 
 public class Sistema {
@@ -13,16 +14,23 @@ public class Sistema {
 		this.produtos = new ArrayList<Produto>();
 	}
 
-	public void adicionarProduto(Scanner scanner) throws PrecoInvalidoException{
+	public void adicionarProduto(Scanner scanner) throws PrecoInvalidoException, CodigoDuplicadoException {
 		System.out.println("Digite o nome do produto: ");
 		String nome = scanner.nextLine();
 		System.out.println("Digite o código: ");
 		String codigo = scanner.nextLine();
+
+		for (Produto produto : produtos) {
+			if (produto.getCodigo().equals(codigo)) {
+				throw new CodigoDuplicadoException("Já existe um produto com o código " + codigo);
+			}
+		}
+
 		System.out.println("Digite o preço do produto: ");
 		Double preco = scanner.nextDouble();
 		scanner.nextLine();
-		
-		if(preco <= 0) {
+
+		if (preco <= 0) {
 			throw new PrecoInvalidoException("O preço precisa ser maior que 0");
 		}
 
