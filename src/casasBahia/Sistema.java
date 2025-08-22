@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import excecoes.CodigoDuplicadoException;
 import excecoes.PrecoInvalidoException;
+import excecoes.ProdutoNaoEncontradoException;
 
 public class Sistema {
 
@@ -114,17 +115,19 @@ public class Sistema {
 		return null;
 	}
 
-	public void removerProduto(Scanner scanner) {
+	public void removerProduto(Scanner scanner) throws ProdutoNaoEncontradoException {
 		System.out.println("Digite o código do produto: ");
 		String codigoProcurado = scanner.nextLine();
-		for(int i=0; i < produtos.size(); i++) {
-			if(produtos.get(i).getCodigo().equals(codigoProcurado)) {
+
+		for (int i = 0; i < produtos.size(); i++) {
+			if (produtos.get(i).getCodigo().equals(codigoProcurado)) {
 				produtos.remove(i);
-				System.out.println("Produto removido");
+				System.out.println("Produto removido!");
 				return;
 			}
 		}
-		System.out.println("Produto não encontrado!");
+		throw new ProdutoNaoEncontradoException("Produto com código " + codigoProcurado + " não encontrado!");
 	}
+
 }
 

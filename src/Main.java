@@ -1,6 +1,7 @@
 import casasBahia.Sistema;
 import excecoes.CodigoDuplicadoException;
 import excecoes.PrecoInvalidoException;
+import excecoes.ProdutoNaoEncontradoException;
 
 import java.util.Scanner;
 
@@ -36,7 +37,11 @@ public class Main {
                     sistema.buscarProduto(scan);
                     break;
                 case 4:
-                    sistema.removerProduto(scan);
+                    try {
+                        sistema.removerProduto(scan);
+                    } catch (ProdutoNaoEncontradoException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 default:
                     break;
