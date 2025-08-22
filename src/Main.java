@@ -1,7 +1,6 @@
+import casasBahia.Produto;
 import casasBahia.Sistema;
-import excecoes.CodigoDuplicadoException;
-import excecoes.PrecoInvalidoException;
-import excecoes.ProdutoNaoEncontradoException;
+import excecoes.*;
 
 import java.util.Scanner;
 
@@ -18,6 +17,7 @@ public class Main {
             System.out.println("2- Listar");
             System.out.println("3- Buscar");
             System.out.println("4- Remover");
+            System.out.println("5- Aplicar desconto");
             System.out.print("Digite sua opção: ");
             opcao = scan.nextInt();
             scan.nextLine();
@@ -43,11 +43,27 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
                     break;
+                case 5:
+                    try {
+                        System.out.println("Digite o código do produto para aplicar desconto:");
+                        Produto produto = sistema.buscarProduto(scan);
+
+                        System.out.println("Produto encontrado: " + produto);
+                        System.out.println("Preço atual: R$ " + produto.getPreco());
+
+                        System.out.print("Digite o desconto (0 a 0.5): ");
+                        double desconto = scan.nextDouble();
+                        scan.nextLine();
+                        sistema.AplicarDesconto(produto, desconto);
+
+                    } catch (DescontoInvalidoException e) {
+                        System.out.println(e.getMessage());
+                    }
                 default:
                     break;
             }
 
-        } while (opcao != 5);
+        } while (opcao != 6);
         System.out.println("Saindo do Sistema!");
     }
 }

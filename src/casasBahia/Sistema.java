@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import excecoes.CodigoDuplicadoException;
+import excecoes.AplicarDescontoException;
+import excecoes.DescontoInvalidoException;
 import excecoes.PrecoInvalidoException;
 import excecoes.ProdutoNaoEncontradoException;
+
 
 public class Sistema {
 
@@ -128,6 +131,20 @@ public class Sistema {
 		}
 		throw new ProdutoNaoEncontradoException("Produto com código " + codigoProcurado + " não encontrado!");
 	}
+	public void AplicarDesconto(Produto produto, double desconto) throws DescontoInvalidoException {
+		if (desconto < 0 || desconto > 0.5) {
+			throw new DescontoInvalidoException("Desconto inválido: " + (desconto * 100) + "%");
+		}
+
+		double novoPreco = produto.getPreco() - (produto.getPreco() * desconto);
+		produto.setPreco(novoPreco);
+
+		System.out.println("Desconto de " + (desconto * 100) + "% aplicado com sucesso!");
+		System.out.println("Novo preço: R$ " + novoPreco);
+	}
+
 
 }
+
+
 
